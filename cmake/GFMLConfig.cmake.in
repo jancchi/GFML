@@ -1,0 +1,8 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/GFMLTargets.cmake")
+
+# Ensure SFML is found for downstream consumers
+find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
+
+check_required_components(GFML)

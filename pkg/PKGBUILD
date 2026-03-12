@@ -1,0 +1,27 @@
+# Maintainer: jancchi
+pkgname=sfml2
+pkgver=2.6.2
+pkgrel=1
+pkgdesc="Simple and Fast Multimedia Library 2.6 (for GFML)"
+arch=('x86_64')
+url="https://www.sfml-dev.org"
+license=('zlib')
+depends=('freetype2' 'libx11' 'libxrandr' 'openal' 'flac' 'libjpeg' 'glew')
+makedepends=('cmake' 'mesa')
+conflicts=('sfml')           # ← won't clash-install with sfml3
+provides=('sfml2')
+source=("https://github.com/SFML/SFML/releases/download/${pkgver}/SFML-${pkgver}-sources.zip")
+sha256sums=('ae594c4e55d30ce8c3c9572d36e5e4f5e53c2a0953d390e5cca2697ccb89e50a')
+
+build() {
+    cmake -B build -S "SFML-${pkgver}" \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DSFML_BUILD_EXAMPLES=OFF \
+        -DSFML_BUILD_DOC=OFF
+    cmake --build build
+}
+
+package() {
+    DESTDIR="$pkgdir" cmake --install build
+}

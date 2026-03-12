@@ -18,6 +18,8 @@ namespace gf {
 		m_text.setOrigin(textBounds.left + textBounds.width / 2.0f,
 						textBounds.top + textBounds.height / 2.0f);
 		m_text.setPosition(size.x / 2.0f, size.y / 2.0f);
+
+		updateBounds();
 	}
 
 	void Button::handleEvent(const sf::Event& event, const sf::RenderWindow& window) const {
@@ -46,4 +48,27 @@ namespace gf {
 
 	void Button::setOnClick(const std::function<void()>& callback) { m_callback = callback; }
 
+	void Button::updateBounds() {
+		// 1. Get the size of the text
+		sf::FloatRect textBounds = m_text.getLocalBounds();
+
+		// 2. Define some padding (e.g., 10 pixels on all sides)
+		float padding = 10.0f;
+
+		// 3. Resize the background rectangle
+		m_background.setSize({
+			textBounds.width + (padding * 2),
+			textBounds.height + (padding * 2)
+		});
+
+		// 4. Re-center the text within the new background size
+		// Note: We use textBounds.left/top because SFML text often has whitespace offsets
+		m_text.setOrigin(textBounds.left, textBounds.top);
+		m_text.setPosition(padding, padding);
+	}
+
+	void Button::setString(const std::string &text, const sf::Font &font) {
+		m_text.setString(text);
+		updateBounds();
+	}
 } // namespace gf

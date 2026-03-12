@@ -12,6 +12,8 @@ namespace gf {
 		void handleEvent(const sf::Event& event);
 		void appendText(const std::string& str);
 		std::string getText() const;
+		void refreshText();
+		void refreshGlow();
 
 	protected:
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -22,6 +24,7 @@ namespace gf {
 		std::string m_content;
 
 		bool m_isFocused = false;
+		sf::RectangleShape m_glowLayers[3];
 	};
 
 } // namespace gf

@@ -22,6 +22,10 @@ namespace gf {
 
 		void setBackgroundColor(const sf::Color color){m_background.setFillColor(color);}
 		void setTextColor(const sf::Color color){m_text.setFillColor(color);}
+
+		void setString(const std::string& text, const sf::Font& font);
+
+		void updateBounds();
 	protected:
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

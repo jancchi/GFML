@@ -13,7 +13,9 @@ int main() {
 
 	sf::RenderWindow window(sf::VideoMode(800, 600), "GFML Application");
 
-	gf::TextArea userInput("Enter text: ", {20,20}, font);
+	gf::Button button("Click me!", {4,4}, font);
+
+	gf::TextArea userInput("Enter text: ", {80,20}, font);
 
 	userInput.setPosition(400, 400);
 
@@ -21,14 +23,16 @@ int main() {
 
 		sf::Event event;
 		while (window.pollEvent(event)) {
+			userInput.handleEvent(event);
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			}
 
 		}
 
-		window.clear(sf::Color::Green);
+		window.clear(sf::Color::Blue);
 		window.draw(userInput);
+		window.draw(button);
 		window.display();
 	}
 
